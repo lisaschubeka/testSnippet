@@ -1,0 +1,30 @@
+name: Issue Formatting Checker
+run-name: ${{ github.actor }} is checked for formatting
+on: 
+  issues:
+    types: [opened, edited]
+    
+env:
+  match: f
+  
+jobs:
+  Issue-Format-Checking:
+    runs-on: self-hosted
+    steps:
+      - name: Find Comment
+        uses: intel-innersource/documentation.debug.pythonsv.pythonsv-snippets@main
+        id: commentId
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body-includes: Description
+      - run: | 
+          if [[ ${{ steps.commentID.outputs.comment-body }} =~ \*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)``` ]];
+          then echo "t" >> ${{ env.match }};
+          fi
+  Issue-Processing:
+    runs-on: self-hosted
+    needs: Issue-Format-Checking
+    steps:
+      - name: fail job
+        if: ${{ env.match=="f" }}
+        run: exit 1
