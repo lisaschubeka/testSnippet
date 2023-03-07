@@ -18,7 +18,7 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body-includes: Description
       - run: | 
-          if [[ ${{ steps.commentID.outputs.comment-body }} =~ \*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)``` ]];
+          if [[ ${{ steps.commentId.outputs.comment-body }} =~ \*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)``` ]];
           then echo "t" >> ${{ env.match }};
           fi
   Issue-Processing:
