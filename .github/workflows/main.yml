@@ -26,5 +26,5 @@ jobs:
     needs: Issue-Format-Checking
     steps:
       - name: fail job
-        if: ${{ env.match=="f" }}
+        if: ${{ env.match=='f' }}
         run: exit 1
