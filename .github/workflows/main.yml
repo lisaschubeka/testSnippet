@@ -18,13 +18,4 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body-includes: Description
       - run: | 
-          if [[ ${{ steps.commentId.outputs.comment-body }} =~ \*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)``` ]];
-          then echo "t" >> ${{ env.match }};
-          fi
-  Issue-Processing:
-    runs-on: ubuntu-latest
-    needs: Issue-Format-Checking
-    steps:
-      - name: fail job
-        if: ${{ env.match=='f' }}
-        run: exit 1
+          echo ${{ steps.commentId.outputs.comment-body }}
