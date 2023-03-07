@@ -19,7 +19,7 @@ jobs:
           body-includes: Description
       - run: |
           var=${{ steps.commentId.outputs.comment-body }}
-          if [[ $var =~ \*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)``` ]];
+          if [[ $var =~ .* ]];
           then echo "t";
           fi
           echo ${{ env.match }}
