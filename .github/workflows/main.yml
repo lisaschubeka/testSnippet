@@ -19,9 +19,7 @@ jobs:
           body-includes: Description
       - run: |
           var=${{ steps.commentId.outputs.comment-body }}
-          if [[ $var =~ .* ]];
-          then echo "t";
-          fi
+          echo $var
           echo ${{ env.match }}
   Issue-Processing:
     runs-on: ubuntu-latest
