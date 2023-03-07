@@ -18,10 +18,11 @@ jobs:
           issue-number: ${{ github.event.issue.number }}
           body-includes: Description
       - run: |
-          var=${{ steps.commentId.outputs.comment-body }} 
+          var=${{ steps.commentId.outputs.comment-body }}
           if [[ $var =~ \*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)``` ]];
           then echo "t" >> ${{ env.match }};
           fi
+          echo ${{ env.match }}
   Issue-Processing:
     runs-on: ubuntu-latest
     needs: Issue-Format-Checking
