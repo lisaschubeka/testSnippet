@@ -24,7 +24,6 @@ jobs:
         id: fc
         with:
           issue-number: 36
-          body-regex: '((.|\s+)*)'
           
       - run: |
           echo ${{ steps.fc.outputs.comment-body }}
