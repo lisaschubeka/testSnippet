@@ -1,6 +1,8 @@
 name: Create Comment with Regex Match
 
-on: [issue_comment]
+on: 
+  issues:
+    types: [opened, edited]
 
 jobs:
   create_comment:
