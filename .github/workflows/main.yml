@@ -2,7 +2,7 @@ name: Create Comment with Regex Match
 
 on: 
   issues:
-    types: [opened]
+    types: [opened, edited]
 
 jobs:
   create_comment:
@@ -23,7 +23,7 @@ jobs:
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: ${{ github.event.issue.id }}
+          issue-number: ${{ github.event.issues.issue.id }}
           body-regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
 
       - uses: actions-ecosystem/action-create-comment@v1
