@@ -27,8 +27,9 @@ jobs:
           body-regex: '((.|\s)*)Please correct((.|\s)*)'
           
       - name: Delete comment
-        uses: detomarco/delete-comments@v1.0.4
-        with:
-          token: ${GITHUB_TOKEN}
-          repository: lisaschubeka/testSnippet
-          comment-id: ${{ steps.fc.outputs.comment-id}}
+        uses: izhangzhihao/delete-comment@master
+        if: ${{ steps.fc.outputs.comment-id != 0 }}
+        with: 
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          delete_user_name: open-collective-bot[bot]
+          issue_number: ${{ github.event.issue.number }}
