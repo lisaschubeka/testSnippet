@@ -1,30 +1,22 @@
-name: Issue Formatting Checker
-run-name: ${{ github.actor }} is checked for formatting
-on: 
-  issues:
-    types: [opened, edited]
-    
-env:
-  match: f
-  
+name: Create Comment with Regex Match
+
+on: [issue_comment]
+
 jobs:
-  Issue-Format-Checking:
+  create_comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Find Comment
-        uses: actions/checkout@v3
-        id: commentId
+      - uses: actions/checkout@v2
+
+      - uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match
         with:
-          issue-number: ${{ github.event.issue.number }}
-          body-includes: Description
-      - name: ifCheck
-        id: ifcheck
-        run: |
-          var=${{ steps.commentId.outputs.comment_body }}
-          echo $var
-          if [[ $var =~ \*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)``` ]];
-          then echo "match=true" >> $GITHUB_OUTPUT
-          fi
-      - name: Issue Processing   
-        if: steps.ifcheck.outputs.match != 'true'
-        run: exit 1
+          text: ${{ github.event.comment.body }}
+          regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
+          flags: gm
+
+      - uses: actions-ecosystem/action-create-comment@v1
+        if: ${{ steps.regex-match.outputs.match == '' }}
+        with:
+          body: |
+            Hello, @${{ github.actor }}! Please correct your comment formatting.
