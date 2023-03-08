@@ -27,7 +27,7 @@ jobs:
           body-regex: '((.|\s)*)Please correct((.|\s)*)'
           
       - name: Delete comment
-        uses: detomarco/delete-comment@v1
+        uses: detomarco/delete-comments@v1.0.4
         with:
           token: ${GITHUB_TOKEN}
           repository: owner/repo
