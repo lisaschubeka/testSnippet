@@ -18,7 +18,7 @@ jobs:
           regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
 
       - uses: actions-ecosystem/action-create-comment@v1
-        if: ${{ steps.regex-match.outputs.match == '' }}
+        if: ${{ steps.regex-match.outputs.match != '' }}
         with:
           github_token: ${{ secrets.github_token }}
           body: |
