@@ -16,9 +16,11 @@ jobs:
         with:
           text: ${{ github.event.comment.body }}
           regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
+      - run: |
+          echo ${{ github.event.comment.body }}
 
       - uses: actions-ecosystem/action-create-comment@v1
-        if: ${{ steps.regex-match.outputs.match != '' }}
+        if: ${{ steps.regex-match.outputs.match == '' }}
         with:
           github_token: ${{ secrets.github_token }}
           body: |
