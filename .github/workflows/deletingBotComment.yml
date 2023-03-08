@@ -31,5 +31,5 @@ jobs:
         if: ${{ steps.fc.outputs.comment-id != 0 }}
         with: 
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          delete_user_name: open-collective-bot[bot]
+          delete_user_name: github-actions[bot]
           issue_number: ${{ github.event.issue.number }}
