@@ -14,10 +14,10 @@ jobs:
       - uses: actions-ecosystem/action-regex-match@v2
         id: regex-match
         with:
-          text: ${{ github.event.issues.issue.body }}
+          text: ${{ github.issues.issue.body }}
           regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
       - run: |
-          echo ${{ github.event.issues.issue.body }}
+          echo ${{ github.issues.issue.body }}
 
       - uses: actions-ecosystem/action-create-comment@v1
         if: ${{ steps.regex-match.outputs.match == '' }}
