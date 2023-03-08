@@ -2,7 +2,7 @@ name: Create Comment with Regex Match
 
 on: 
   issues:
-    types: [opened, edited]
+    types: [opened]
 
 jobs:
   create_comment:
@@ -23,3 +23,4 @@ jobs:
           github_token: ${{ secrets.github_token }}
           body: |
             Hello, @${{ github.actor }}! Please correct your code snippet formatting.
+            
