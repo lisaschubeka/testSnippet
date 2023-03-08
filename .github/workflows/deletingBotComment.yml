@@ -1,0 +1,34 @@
+
+name: Delete bot comment
+
+on: 
+  issues:
+    types: [edited]
+
+jobs:
+  create_comment:
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match
+        with:
+          text: ${{ github.event.issue.body }}
+          regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
+          
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
+        if: ${{ steps.regex-match.outputs.match != '' }}
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body-regex: '((.|\s)*)Please correct((.|\s)*)'
+          
+      - name: Delete comment
+        uses: detomarco/delete-comment@v1
+        with:
+          token: ${GITHUB_TOKEN}
+          repository: owner/repo
+          comment-id: ${{ steps.fc.outputs.comment-id}}
