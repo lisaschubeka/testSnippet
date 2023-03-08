@@ -2,7 +2,7 @@ name: Create Comment with Regex Match
 
 on: 
   issues:
-    types: [opened, edited]
+    types: [opened]
 
 jobs:
   create_comment:
@@ -16,11 +16,10 @@ jobs:
         with:
           text: ${{ github.event.comment.body }}
           regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
-          flags: gm
 
       - uses: actions-ecosystem/action-create-comment@v1
         if: ${{ steps.regex-match.outputs.match == '' }}
         with:
           github_token: ${{ secrets.github_token }}
           body: |
-            Hello, @${{ github.actor }}! Please correct your comment formatting.
+            Hello, @${{ github.actor }}! Please correct your code snippet formatting.
