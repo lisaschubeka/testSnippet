@@ -1,6 +1,8 @@
 name: Create Comment with Regex Match
 
-on: [issue_comment]
+on: 
+  issues:
+    types: [opened]
 
 jobs:
   create_comment:
@@ -17,8 +19,15 @@ jobs:
       - run: |
           echo ${{ github.event.comment.body }}
 
+      - name: Find Comment
+        uses: peter-evans/find-comment@v2
+        id: fc
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body-regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
+
       - uses: actions-ecosystem/action-create-comment@v1
-        if: ${{ steps.regex-match.outputs.match == '' }}
+        if: ${{ steps.fc.outputs.comment-body == 0 }}
         with:
           github_token: ${{ secrets.github_token }}
           body: |
