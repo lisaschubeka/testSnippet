@@ -23,7 +23,7 @@ jobs:
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: ${{ github.event.issues.issue.id }}
+          issue-number: ${{ github.event.issues.issue.number }}
           body-regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
 
       - uses: actions-ecosystem/action-create-comment@v1
