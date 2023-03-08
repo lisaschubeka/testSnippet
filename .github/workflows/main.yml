@@ -11,25 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-#       - uses: actions-ecosystem/action-regex-match@v2
-#         id: regex-match
-#         with:
-#           text: ${{ github.event.comment.body }}
-#           regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
-#       - run: |
-#           echo ${{ github.event.comment.body }}
-
-      - name: Find Comment
-        uses: peter-evans/find-comment@v2
-        id: fc
+      - uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match
         with:
-          issue-number: 36
-          
+          text: ${{ github.event.issues.issue.body }}
+          regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
       - run: |
-          echo ${{ steps.fc.outputs.comment-body }}
+          echo ${{ github.event.comment.body }}
 
       - uses: actions-ecosystem/action-create-comment@v1
-        if: ${{ steps.fc.outputs.comment-body == 0 }}
+        if: ${{ steps.regex-match.outputs.match == '' }}
         with:
           github_token: ${{ secrets.github_token }}
           body: |
