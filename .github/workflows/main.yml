@@ -23,8 +23,8 @@ jobs:
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: 20
-          body-regex: '\*\*Description\*\*:((.|\s+)*)'
+          issue-number: 36
+          body-regex: '((.|\s+)*)'
           
       - run: |
           echo ${{ steps.fc.outputs.comment-body }}
