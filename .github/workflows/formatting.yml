@@ -16,9 +16,7 @@ jobs:
         with:
           text: ${{ github.event.issue.body }}
           regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
-      - run: |
-          echo ${{ github.event.issue.body }}
-
+          
       - uses: actions-ecosystem/action-create-comment@v1
         if: ${{ steps.regex-match.outputs.match == '' }}
         with:
