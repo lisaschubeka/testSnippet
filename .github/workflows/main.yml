@@ -11,19 +11,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions-ecosystem/action-regex-match@v2
-        id: regex-match
-        with:
-          text: ${{ github.event.comment.body }}
-          regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
-      - run: |
-          echo ${{ github.event.comment.body }}
+#       - uses: actions-ecosystem/action-regex-match@v2
+#         id: regex-match
+#         with:
+#           text: ${{ github.event.comment.body }}
+#           regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
+#       - run: |
+#           echo ${{ github.event.comment.body }}
 
       - name: Find Comment
         uses: peter-evans/find-comment@v2
         id: fc
         with:
-          issue-number: ${{ github.event.issue.number }}
+          issue-number: ${{ github.event.issue.id }}
           body-regex: '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
 
       - uses: actions-ecosystem/action-create-comment@v1
