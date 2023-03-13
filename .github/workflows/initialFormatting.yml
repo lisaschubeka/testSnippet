@@ -13,7 +13,10 @@ jobs:
     - name: Checking Formatting
       run: |
         body= ${{ github.event.issue.body }}
-        if [[ $body =~ \*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)``` ]]
+        echo "body<<EOF" >> $GITHUB_ENV
+        echo "$body" >> $GITHUB_ENV
+        echo "EOF" >> $GITHUB_ENV
+        if [[ ${{ env.body }} =~ \*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)``` ]]
         then 
         exit 0
         else 
