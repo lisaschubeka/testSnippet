@@ -12,13 +12,13 @@ jobs:
     - run: echo "Hello World"
     - name: Checking Formatting
       run: |
-        re= '\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```'
+        re= "\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```"
         body= ${{ github.event.issue.body }}
-        if [[ $body =~ $re ]]; 
+        if [[ $body =~ $re ]]
         then 
-          exit 0;
+        exit 0
         else 
-          gh issue comment ${{ github.event.issue.number }} --body "Your formatting may be incorrect.";
+        gh issue comment ${{ github.event.issue.number }} --body "Your formatting may be incorrect."
         fi
     
 #       - uses: actions/checkout@v2
