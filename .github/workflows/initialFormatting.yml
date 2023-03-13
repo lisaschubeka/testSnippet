@@ -12,8 +12,8 @@ jobs:
     - run: echo "Hello World"
     - name: Checking Formatting
       run: |
-        body= ${{ github.event.issue.body }}
-        echo "body<<EOF" >> $GITHUB_ENV
+        body= $(cat << ${{ github.event.issue.body }})
+        echo "${{ github.event.issue.body }}<<EOF" >> $GITHUB_ENV
         echo "$body" >> $GITHUB_ENV
         echo "EOF" >> $GITHUB_ENV
         if [[ ${{ env.body }} =~ \*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)``` ]]
