@@ -12,9 +12,8 @@ jobs:
     - run: echo "Hello World"
     - name: Checking Formatting
       run: |
-        re= "\*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)```"
         body= ${{ github.event.issue.body }}
-        if [[ $body =~ $re ]]
+        if [[ $body =~ \*\*Description\*\*:\s+.*\s+\*\*Acronyms\*\*:\s+.*\s+\*\*Code\*\*:\s+.*\s+```(\n|\r\n|\n\r)((.|\s+)*)(\n|\r\n|\n\r)``` ]]
         then 
         exit 0
         else 
